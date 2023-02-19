@@ -3,7 +3,7 @@ import 'package:food_edamam/screens/food/food_page.dart';
 import 'package:food_edamam/screens/search/search_page.dart';
 import 'package:food_edamam/screens/splash/splash_page.dart';
 
-abstract class RoutName {
+abstract class RouteName {
   static const splash = 'splash';
   static const search = 'search';
   static const foods = 'foods';
@@ -12,12 +12,12 @@ abstract class RoutName {
 class AppRoutes {
   static Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RoutName.splash:
+      case RouteName.splash:
         return MaterialPageRoute(builder: (_) => SplashPage());
-      case RoutName.search:
+      case RouteName.search:
         return MaterialPageRoute(builder: (_) => SearchPage());
 
-      case RoutName.foods:
+      case RouteName.foods:
         return MaterialPageRoute(builder: (_) => FoodPage());
       // case RoutName.productInfo:
       //   final args = settings.arguments as Map<String, dynamic>;
