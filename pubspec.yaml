@@ -20,6 +20,7 @@ dependencies:
   get_it: ^7.2.0
   google_fonts: ^4.0.3
   flutter_screenutil: ^5.6.1
+  lottie: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -38,5 +39,6 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
+    - assets/lotties/
 
   

@@ -10,7 +10,7 @@ class ApiService extends ApiClient {
       Map<String, String> queryParams = {
         'app_id': "58c04146",
         'app_key': '8e529be1284cc2aa8ffc21fcaa28a47c',
-        'ingr': 'carrot',
+        'ingr': 'onion',
         'health': 'vegetarian',
         'calories': '100-300',
         'category': 'generic-foods',

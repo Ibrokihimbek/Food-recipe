@@ -1,22 +1,23 @@
 import 'package:equatable/equatable.dart';
-import 'package:food_edamam/cubit/food_cobit/food_recipe_cubit.dart';
 import 'package:food_edamam/data/models/food_resipe/food_recipe_model.dart';
 
-class SingleCubitFoodRecipeState extends Equatable {
+import 'food_recipe_cubit.dart';
+
+class FoodRecipeState extends Equatable {
   final FoodRecipeModels foodRecipeModel;
   final FoodCubitStatus foodsCubitStatus;
   final String errorText;
-  const SingleCubitFoodRecipeState({
+  const FoodRecipeState({
     required this.foodRecipeModel,
     required this.foodsCubitStatus,
     required this.errorText,
   });
-  SingleCubitFoodRecipeState copyWith({
+  FoodRecipeState copyWith({
     FoodRecipeModels? foodRecipeModel,
     FoodCubitStatus? foodsCubitStatus,
     String? errorText,
   }) =>
-      SingleCubitFoodRecipeState(
+      FoodRecipeState(
         foodsCubitStatus: foodsCubitStatus ?? this.foodsCubitStatus,
         foodRecipeModel: foodRecipeModel ?? this.foodRecipeModel,
         errorText: errorText ?? this.errorText,
