@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:food_edamam/cubit/food_recipe_cubit.dart';
+import 'package:food_edamam/cubit/food_cobit/food_recipe_cubit.dart';
 import 'package:food_edamam/data/models/food_resipe/food_recipe_model.dart';
 
 class SingleCubitFoodRecipeState extends Equatable {
