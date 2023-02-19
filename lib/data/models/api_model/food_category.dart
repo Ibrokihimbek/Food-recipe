@@ -1,5 +1,5 @@
 class FoodCategory {
-  static List<String> foodC = [
+  static List<String> foodCategory = [
     "generic-foods",
     "generic-meals",
     "packed-foods",

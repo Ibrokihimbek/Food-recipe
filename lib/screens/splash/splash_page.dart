@@ -20,9 +20,13 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void goNext() {
-    Future.delayed(const Duration(seconds: 3)).then(
+    Future.delayed(
+      const Duration(
+        seconds: 3,
+      ),
+    ).then(
       (value) {
-        Navigator.pushReplacementNamed(context, RouteName.foods);
+        Navigator.pushReplacementNamed(context, RouteName.search);
       },
     );
   }
