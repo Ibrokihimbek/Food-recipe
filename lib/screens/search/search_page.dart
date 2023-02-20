@@ -11,7 +11,6 @@ import 'package:food_edamam/screens/search/widgets/text_widget.dart';
 import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/font_style.dart';
 import 'package:food_edamam/widgets/custom_appbar.dart';
-import 'package:food_edamam/widgets/toast_widget.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -21,13 +20,14 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  TextEditingController ingridentControler = TextEditingController();
-  TextEditingController caloriesControler = TextEditingController();
+  TextEditingController ingredientController = TextEditingController();
+  TextEditingController caloriesController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   int categoryIndex = -1;
-  int helthIndex = -1;
+  int healthIndex = -1;
   String category = '';
   String health = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,14 +95,14 @@ class _SearchPageState extends State<SearchPage> {
                       onTap: () {
                         health = FoodHealth.foodHealth[index];
                         setState(() {
-                          helthIndex = index;
+                          healthIndex = index;
                         });
                       },
                       child: Container(
                         margin: EdgeInsets.only(left: 12.w).r,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40.r),
-                          color: helthIndex == index
+                          color: healthIndex == index
                               ? AppColors.C_70B9BE
                               : AppColors.C_E6EBF2,
                         ),
@@ -114,7 +114,7 @@ class _SearchPageState extends State<SearchPage> {
                               FoodHealth.foodHealth[index],
                               textAlign: TextAlign.center,
                               style: fontRobotoW400(
-                                      appcolor: index == helthIndex
+                                      appcolor: index == healthIndex
                                           ? AppColors.white
                                           : AppColors.C_70B9BE)
                                   .copyWith(fontSize: 16.sp),
@@ -129,12 +129,12 @@ class _SearchPageState extends State<SearchPage> {
               const TextWidget(word: 'Ingredient'),
               TextfieldWidget(
                 word: 'Enter ingredient',
-                textController: ingridentControler,
+                textController: ingredientController,
               ),
               const TextWidget(word: 'Calories Range'),
               TextfieldWidgetByCalories(
                 word: 'Enter calories range',
-                textController: caloriesControler,
+                textController: caloriesController,
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -145,21 +145,13 @@ class _SearchPageState extends State<SearchPage> {
                 ).r,
                 child: CustomButton(
                   onTap: () {
-                    if (category.isEmpty ||
-                        caloriesControler.text.isEmpty ||
-                        ingridentControler.text.isEmpty ||
-                        health.isEmpty) {
-                      getMyToast(
-                          message: "Barcha elementlarni to'ldring va tanlang");
-                    } else {
-                      context.read<FoodRecipeCubit>().fetchFoods(
-                            category: category,
-                            calorie: caloriesControler.text,
-                            health: health,
-                            ingrident: ingridentControler.text,
-                          );
-                      Navigator.pushNamed(context, RouteName.foods);
-                    }
+                    context.read<FoodRecipeCubit>().fetchFoods(
+                          category: category,
+                          calorie: caloriesController.text,
+                          health: health,
+                          ingredient: ingredientController.text,
+                        );
+                    Navigator.pushNamed(context, RouteName.foods);
                   },
                 ),
               ),
@@ -172,8 +164,8 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void dispose() {
-    caloriesControler.clear();
-    ingridentControler.clear();
+    caloriesController.clear();
+    ingredientController.clear();
     super.dispose();
   }
 }

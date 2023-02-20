@@ -7,6 +7,7 @@ import 'food_recipe_state.dart';
 
 class FoodRecipeCubit extends Cubit<FoodRecipeState> {
   final GetFoodRepo foodRepo;
+
   FoodRecipeCubit({required this.foodRepo})
       : super(
           FoodRecipeState(
@@ -24,16 +25,14 @@ class FoodRecipeCubit extends Cubit<FoodRecipeState> {
     required String category,
     required String health,
     required String calorie,
-    required String ingrident,
+    required String ingredient,
   }) async {
-    emit(
-      state.copyWith(foodsCubitStatus: FoodCubitStatus.LOADING),
-    );
+    emit(state.copyWith(foodsCubitStatus: FoodCubitStatus.LOADING));
     MyResponse myResponse = await foodRepo.getFoods(
       category: category,
       health: health,
       calorie: calorie,
-      ingrident: ingrident,
+      ingrident: ingredient,
     );
 
     if (myResponse.error.isEmpty) {

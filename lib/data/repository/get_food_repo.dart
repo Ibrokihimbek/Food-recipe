@@ -18,7 +18,7 @@ class GetFoodRepo {
       _apiService.getFood(
         category: category,
         health: health,
-        ingrident: ingrident,
+        ingredient: ingrident,
         calorie: calorie,
       );
 }

@@ -15,9 +15,9 @@ class Nutrients {
 
   factory Nutrients.fromJson(Map<String, dynamic> json) => Nutrients(
         enercKcal: json["ENERC_KCAL"],
-        procnt: json["PROCNT"]?.toDouble(),
-        fat: json["FAT"]?.toDouble(),
-        chocdf: json["CHOCDF"]?.toDouble(),
-        fibtg: json["FIBTG"]?.toDouble(),
+        procnt: json["PROCNT"] as double? ?? 0.0,
+        fat: json["FAT"] as double? ?? 0.0,
+        chocdf: json["CHOCDF"] as double? ?? 0.0,
+        fibtg: json["FIBTG"] as double? ?? 0.0,
       );
 }
