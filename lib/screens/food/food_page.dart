@@ -15,46 +15,44 @@ class FoodPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FoodRecipeCubit(),
-      child: BlocBuilder<FoodRecipeCubit, FoodRecipeState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: const CustomAppBar(title: 'Foods'),
-            body: state.foodsCubitStatus == FoodCubitStatus.LOADING
-                ? Center(
-                    child: Lottie.asset(AppLotties.waiting, width: 130.w),
-                  )
-                : state.foodsCubitStatus == FoodCubitStatus.SUCCESS
-                    ? Column(
-                        children: [
-                          Expanded(
-                            child: ListView(
-                              physics: const BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              children: List.generate(
-                                state.foodRecipeModel.hints.length,
-                                (index) => FoodsItem(
-                                  hint: state.foodRecipeModel.hints[index],
-                                ),
+    return BlocBuilder<FoodRecipeCubit, FoodRecipeState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: const CustomAppBar(title: 'Foods'),
+          body: state.foodsCubitStatus == FoodCubitStatus.LOADING
+              ? Center(
+                  child: Lottie.asset(AppLotties.waiting, width: 130.w),
+                )
+              : state.foodsCubitStatus == FoodCubitStatus.SUCCESS
+                  ? Column(
+                      children: [
+                        Expanded(
+                          child: ListView(
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            children: List.generate(
+                              state.foodRecipeModel.hints.length,
+                              (index) => FoodsItem(
+                                hint: state.foodRecipeModel.hints[index],
                               ),
                             ),
                           ),
-                        ],
-                      )
-                    : state.foodsCubitStatus == FoodCubitStatus.ERROR
-                        ? Center(
-                            child: Text(
-                              state.errorText.toString(),
-                              style: fontRobotoW400(
-                                appcolor: AppColors.black,
-                              ),
+                        ),
+                      ],
+                    )
+                  : state.foodsCubitStatus == FoodCubitStatus.ERROR
+                      ? Center(
+                          child: Text(
+                            state.errorText.toString(),
+                            textAlign: TextAlign.center,
+                            style: fontRobotoW400(
+                              appcolor: AppColors.black,
                             ),
-                          )
-                        : Container(),
-          );
-        },
-      ),
+                          ),
+                        )
+                      : Container(),
+        );
+      },
     );
   }
 }

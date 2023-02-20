@@ -27,6 +27,6 @@ class Food {
         category: json["category"] ?? '',
         categoryLabel: json["categoryLabel"] ?? '',
         image: json["image"] ??
-            'https://cdn.pngsumo.com/food-png-illustration-free-food-illustrationpng-transparent-cartoon-food-png-650_650.png',
+            'https://www.pngall.com/wp-content/uploads/8/Cooking-Recipe-PNG-High-Quality-Image.png',
       );
 }

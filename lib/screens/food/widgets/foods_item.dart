@@ -63,7 +63,7 @@ class FoodsItem extends StatelessWidget {
                             text: hint.food.label.substring(
                                 0,
                                 hint.food.label.length > 25
-                                    ? 22
+                                    ? 20
                                     : hint.food.label.length),
                             style: fontRobotoW600(appcolor: AppColors.black)
                                 .copyWith(fontSize: 16.sp),

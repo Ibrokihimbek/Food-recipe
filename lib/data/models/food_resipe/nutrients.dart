@@ -7,11 +7,11 @@ class Nutrients {
     required this.fibtg,
   });
 
-  num enercKcal;
-  num procnt;
-  num fat;
-  num chocdf;
-  num fibtg;
+  dynamic enercKcal;
+  dynamic procnt;
+  dynamic fat;
+  dynamic chocdf;
+  dynamic fibtg;
 
   factory Nutrients.fromJson(Map<String, dynamic> json) => Nutrients(
         enercKcal: json["ENERC_KCAL"],

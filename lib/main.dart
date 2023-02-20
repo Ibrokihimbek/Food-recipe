@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_edamam/cubit/food_cobit/food_recipe_cubit.dart';
+import 'package:food_edamam/data/repository/get_food_repo.dart';
 import 'package:food_edamam/screens/app_router.dart';
-import 'package:food_edamam/service/locator/locator_service.dart';
+import 'package:food_edamam/service/api_service/api_service.dart';
 
 void main() {
-  locatorSetUp();
-  runApp(const MyApp());
+  runApp(
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => GetFoodRepo(
+            apiService: ApiService(),
+          ),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => FoodRecipeCubit(
+              foodRepo: context.read<GetFoodRepo>(),
+            ),
+          ),
+        ],
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

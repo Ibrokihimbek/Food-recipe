@@ -17,12 +17,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      title: Center(
-        child: Text(
-          title,
-          style: fontRobotoW800(appcolor: AppColors.black).copyWith(
-            fontSize: 24.sp,
-          ),
+      centerTitle: true,
+      title: Text(
+        title,
+        style: fontRobotoW800(appcolor: AppColors.black).copyWith(
+          fontSize: 24.sp,
         ),
       ),
       systemOverlayStyle: const SystemUiOverlayStyle(
