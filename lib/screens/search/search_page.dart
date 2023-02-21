@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_edamam/cubit/food_cobit/food_recipe_cubit.dart';
-import 'package:food_edamam/data/models/api_model/food_category.dart';
+import 'package:food_edamam/data/models/api_model/food_cuisine_type.dart';
+import 'package:food_edamam/data/models/api_model/food_diet.dart';
+import 'package:food_edamam/data/models/api_model/food_dish_type.dart';
 import 'package:food_edamam/data/models/api_model/food_health_type_model.dart';
+import 'package:food_edamam/data/models/api_model/food_meal_ype.dart';
 import 'package:food_edamam/screens/app_router.dart';
 import 'package:food_edamam/screens/search/widgets/custom_button.dart';
+import 'package:food_edamam/screens/search/widgets/listview_widget.dart';
 import 'package:food_edamam/screens/search/widgets/text_field.dart';
 import 'package:food_edamam/screens/search/widgets/text_widget.dart';
-import 'package:food_edamam/utils/app_colors.dart';
-import 'package:food_edamam/utils/font_style.dart';
 import 'package:food_edamam/widgets/custom_appbar.dart';
 
 class SearchPage extends StatefulWidget {
@@ -22,11 +24,21 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   TextEditingController ingredientController = TextEditingController();
   TextEditingController caloriesController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
+  TextEditingController excludedController = TextEditingController();
+  TextEditingController productController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
-  int categoryIndex = -1;
+  int dietIndex = -1;
   int healthIndex = -1;
-  String category = '';
+  int mealIndex = -1;
+  int dishIndex = -1;
+  int cuisineIndex = -1;
+  String cuisine = '';
+  String dish = '';
+  String diet = '';
   String health = '';
+  String meal = '';
 
   @override
   Widget build(BuildContext context) {
@@ -39,92 +51,65 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TextWidget(word: 'Category'),
-              SizedBox(
-                height: 45,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  children: List.generate(
-                    FoodCategory.foodCategory.length,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        category = FoodCategory.foodCategory[index];
-                        setState(() {
-                          categoryIndex = index;
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left: 12.w).r,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40.r),
-                          color: categoryIndex == index
-                              ? AppColors.C_70B9BE
-                              : AppColors.C_E6EBF2,
-                        ),
-                        height: 41,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              FoodCategory.foodCategory[index],
-                              style: fontRobotoW400(
-                                      appcolor: index == categoryIndex
-                                          ? AppColors.white
-                                          : AppColors.C_70B9BE)
-                                  .copyWith(fontSize: 16.sp),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              const TextWidget(word: 'Diet'),
+              ListviewWidget(
+                itemIndex: dietIndex,
+                model: Diet.diet,
+                onTap: (value) {
+                  diet = Diet.diet[value];
+                  setState(() {
+                    dietIndex = value;
+                  });
+                },
               ),
               const TextWidget(word: 'Health'),
-              SizedBox(
-                height: 45,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  children: List.generate(
-                    FoodHealth.foodHealth.length,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        health = FoodHealth.foodHealth[index];
-                        setState(() {
-                          healthIndex = index;
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left: 12.w).r,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40.r),
-                          color: healthIndex == index
-                              ? AppColors.C_70B9BE
-                              : AppColors.C_E6EBF2,
-                        ),
-                        height: 30,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              FoodHealth.foodHealth[index],
-                              textAlign: TextAlign.center,
-                              style: fontRobotoW400(
-                                      appcolor: index == healthIndex
-                                          ? AppColors.white
-                                          : AppColors.C_70B9BE)
-                                  .copyWith(fontSize: 16.sp),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              ListviewWidget(
+                itemIndex: healthIndex,
+                model: FoodHealth.foodHealth,
+                onTap: (value) {
+                  health = FoodHealth.foodHealth[value];
+                  setState(() {
+                    healthIndex = value;
+                  });
+                },
+              ),
+              const TextWidget(word: 'Meal type'),
+              ListviewWidget(
+                itemIndex: mealIndex,
+                model: MealType.mealType,
+                onTap: (value) {
+                  meal = MealType.mealType[value];
+                  setState(() {
+                    mealIndex = value;
+                  });
+                },
+              ),
+              const TextWidget(word: 'Dish type'),
+              ListviewWidget(
+                itemIndex: dishIndex,
+                model: DishType.dishType,
+                onTap: (value) {
+                  dish = DishType.dishType[value];
+                  setState(() {
+                    dishIndex = value;
+                  });
+                },
+              ),
+              const TextWidget(word: 'Cuisine type'),
+              ListviewWidget(
+                itemIndex: cuisineIndex,
+                model: CuisineType.cuisineType,
+                onTap: (value) {
+                  cuisine = CuisineType.cuisineType[value];
+                  setState(() {
+                    cuisineIndex = value;
+                  });
+                },
+              ),
+              const TextWidget(word: 'Search'),
+              TextfieldWidgetByExcluded(
+                word: 'Enter products',
+                textController: productController,
               ),
               const TextWidget(word: 'Ingredient'),
               TextfieldWidget(
@@ -136,22 +121,64 @@ class _SearchPageState extends State<SearchPage> {
                 word: 'Enter calories range',
                 textController: caloriesController,
               ),
+              const TextWidget(word: 'Time'),
+              TextfieldWidgetByTime(
+                word: 'Time',
+                textController: timeController,
+              ),
+              const TextWidget(word: 'Excluded'),
+              TextfieldWidgetByExcluded(
+                word: 'Excluded',
+                textController: excludedController,
+              ),
               Padding(
                 padding: EdgeInsets.only(
                   left: 12.w,
                   right: 12.w,
                   bottom: 12.h,
-                  top: 230.h,
+                  top: 30.h,
                 ).r,
                 child: CustomButton(
+                  buttonName: 'Apply Filter',
                   onTap: () {
                     context.read<FoodRecipeCubit>().fetchFoods(
-                          category: category,
-                          calorie: caloriesController.text,
+                          q: productController.text,
+                          ingr: ingredientController.text,
+                          diet: diet,
                           health: health,
-                          ingredient: ingredientController.text,
+                          cuisineType: cuisine,
+                          mealType: meal,
+                          dishType: dish,
+                          calories: caloriesController.text,
+                          time: timeController.text,
+                          excluded: excludedController.text,
                         );
                     Navigator.pushNamed(context, RouteName.foods);
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12).r,
+                child: CustomButton(
+                  buttonName: 'Clear Filter',
+                  onTap: () {
+                    setState(() {
+                      productController.clear();
+                      ingredientController.clear();
+                      caloriesController.clear();
+                      timeController.clear();
+                      excludedController.clear();
+                      dietIndex = -1;
+                      healthIndex = -1;
+                      mealIndex = -1;
+                      dishIndex = -1;
+                      cuisineIndex = -1;
+                      cuisine = '';
+                      dish = '';
+                      diet = '';
+                      health = '';
+                      meal = '';
+                    });
                   },
                 ),
               ),
@@ -166,6 +193,9 @@ class _SearchPageState extends State<SearchPage> {
   void dispose() {
     caloriesController.clear();
     ingredientController.clear();
+    productController.clear();
+    timeController.clear();
+    excludedController.clear();
     super.dispose();
   }
 }

@@ -31,9 +31,9 @@ class FoodPage extends StatelessWidget {
                             physics: const BouncingScrollPhysics(),
                             shrinkWrap: true,
                             children: List.generate(
-                              state.foodRecipeModel.hints.length,
+                              state.foodRecipeModel.hits.length,
                               (index) => FoodsItem(
-                                hint: state.foodRecipeModel.hints[index],
+                                hint: state.foodRecipeModel.hits[index],
                               ),
                             ),
                           ),

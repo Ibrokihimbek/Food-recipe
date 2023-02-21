@@ -10,15 +10,27 @@ class GetFoodRepo {
   }
 
   Future<MyResponse> getFoods({
-    required String category,
+    required String q,
+    required String ingr,
+    required String diet,
     required String health,
-    required String calorie,
-    required String ingrident,
+    required String cuisineType,
+    required String mealType,
+    required String dishType,
+    required String calories,
+    required String time,
+    required String excluded,
   }) =>
       _apiService.getFood(
-        category: category,
+        q: q,
+        ingr: ingr,
+        diet: diet,
         health: health,
-        ingredient: ingrident,
-        calorie: calorie,
+        cuisineType: cuisineType,
+        mealType: mealType,
+        dishType: dishType,
+        calories: calories,
+        time: time,
+        excluded: excluded,
       );
 }

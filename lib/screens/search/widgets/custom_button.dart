@@ -4,8 +4,9 @@ import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/font_style.dart';
 
 class CustomButton extends StatelessWidget {
+  final String buttonName;
   final VoidCallback onTap;
-  const CustomButton({super.key, required this.onTap});
+  const CustomButton({super.key, required this.onTap, required this.buttonName});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class CustomButton extends StatelessWidget {
         height: 54.h,
         child: Center(
           child: Text(
-            'Apply Filter',
+            buttonName,
             style: fontRobotoW800(appcolor: AppColors.white)
                 .copyWith(fontSize: 16.sp),
           ),

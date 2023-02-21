@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_edamam/data/models/food_resipe/hint.dart';
+import 'package:food_edamam/data/models/food_resipe/hit.dart';
 import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/font_style.dart';
 
 class FoodsItem extends StatelessWidget {
-  final Hint hint;
+  final Hit hint;
   const FoodsItem({super.key, required this.hint});
 
   @override
@@ -41,7 +41,7 @@ class FoodsItem extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.r),
                       image: DecorationImage(
-                        image: NetworkImage(hint.food.image),
+                        image: NetworkImage(hint.recipe.image),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -51,7 +51,7 @@ class FoodsItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      hint.food.category,
+                      hint.recipe.source,
                       style: fontRobotoW600(appcolor: AppColors.black)
                           .copyWith(fontSize: 16.sp),
                     ),
@@ -60,16 +60,16 @@ class FoodsItem extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: hint.food.label.substring(
+                            text: hint.recipe.label.substring(
                                 0,
-                                hint.food.label.length > 25
+                                hint.recipe.label.length > 25
                                     ? 20
-                                    : hint.food.label.length),
+                                    : hint.recipe.label.length),
                             style: fontRobotoW600(appcolor: AppColors.black)
                                 .copyWith(fontSize: 16.sp),
                           ),
                           TextSpan(
-                            text: hint.food.label.length > 25 ? "... more" : "",
+                            text: hint.recipe.label.length > 25 ? "... more" : "",
                             style: const TextStyle(color: Colors.grey),
                           )
                         ],
@@ -77,7 +77,7 @@ class FoodsItem extends StatelessWidget {
                     ),
                     SizedBox(height: 8.h),
                     Text(
-                      'Kal: ${hint.food.nutrients.enercKcal.toInt()}',
+                      'Kal: ${hint.recipe.calories.toInt()}',
                       style: fontRobotoW400(
                         appcolor: AppColors.C_97A2B0,
                       ).copyWith(fontSize: 14.sp),

@@ -12,7 +12,7 @@ class ApiClient {
   _init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: "https://api.edamam.com/api/food-database/v2/parser",
+        baseUrl: "https://api.edamam.com/api/recipes/v2",
         connectTimeout: 25000,
         receiveTimeout: 20000,
       ),

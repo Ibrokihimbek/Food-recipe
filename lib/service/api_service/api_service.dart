@@ -5,20 +5,32 @@ import 'package:food_edamam/data/models/my_respon/response_model.dart';
 
 class ApiService extends ApiClient {
   Future<MyResponse> getFood({
-    required String category,
+    required String q,
+    required String ingr,
+    required String diet,
     required String health,
-    required String calorie,
-    required String ingredient,
+    required String cuisineType,
+    required String mealType,
+    required String dishType,
+    required String calories,
+    required String time,
+    required String excluded,
   }) async {
     MyResponse myResponse = MyResponse(error: "");
     try {
       Response response = await dio.get(
         dio.options.baseUrl,
         queryParameters: getQueryParams(
-          ingr: ingredient,
+          q: q,
+          ingr: ingr,
+          diet: diet,
           health: health,
-          calories: calorie,
-          category: category,
+          cuisineType: cuisineType,
+          mealType: mealType,
+          dishType: dishType,
+          calories: calories,
+          time: time,
+          excluded: excluded,
         ),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
@@ -46,27 +58,47 @@ class ApiService extends ApiClient {
   }
 
   Map<String, dynamic> getQueryParams({
+    required String q,
     required String ingr,
+    required String diet,
     required String health,
+    required String cuisineType,
+    required String mealType,
+    required String dishType,
     required String calories,
-    required String category,
+    required String time,
+    required String excluded,
   }) {
     Map<String, dynamic> mapData = {
-      'app_id': "58c04146",
-      'app_key': '8e529be1284cc2aa8ffc21fcaa28a47c',
+      'app_id': "79938d09",
+      'app_key': '2462944001f95ce03ec469b4fbac657b',
+      'type': 'public',
+      'imageSize': 'REGULAR'
     };
     List<String> fields = [
-      "ingr",
-      "health",
-      "calories",
-      "category",
+      'q',
+      'ingr',
+      'diet',
+      'health',
+      'cuisineType',
+      'mealType',
+      'dishType',
+      'calories',
+      'time',
+      'excluded',
     ];
 
     List<dynamic> values = [
+      q,
       ingr,
+      diet,
       health,
+      cuisineType,
+      mealType,
+      dishType,
       calories,
-      category,
+      time,
+      excluded,
     ];
 
     for (int i = 0; i < values.length; i++) {
@@ -77,25 +109,4 @@ class ApiService extends ApiClient {
     print("RESULT:$mapData");
     return mapData;
   }
-}
-
-List<DietData> list = [
-  DietData(
-    keyText: "balanced",
-    uzbekTranslation: "Me'yorida",
-    russianTranslation: "Normalniy",
-
-  ),
-];
-
-class DietData {
-  final String keyText;
-  final String uzbekTranslation;
-  final String russianTranslation;
-
-  DietData({
-    required this.keyText,
-    required this.uzbekTranslation,
-    required this.russianTranslation,
-  });
 }
