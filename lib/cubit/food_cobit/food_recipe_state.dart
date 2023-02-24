@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:food_edamam/data/models/food_resipe/food_recipe_model.dart';
+import 'package:food_edamam/data/models/food_resipe/food_recipe.dart';
 
 import 'food_recipe_cubit.dart';
 

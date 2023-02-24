@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_edamam/data/models/food_resipe/food_recipe_model.dart';
+import 'package:food_edamam/data/models/food_resipe/food_recipe.dart';
+import 'package:food_edamam/data/models/food_resipe/links.dart';
+import 'package:food_edamam/data/models/food_resipe/next.dart';
 import 'package:food_edamam/data/models/my_respon/response_model.dart';
 import 'package:food_edamam/data/repository/get_food_repo.dart';
 

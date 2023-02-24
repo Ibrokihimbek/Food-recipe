@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_edamam/cubit/food_cobit/food_recipe_cubit.dart';
 import 'package:food_edamam/cubit/food_cobit/food_recipe_state.dart';
+import 'package:food_edamam/screens/app_router.dart';
 import 'package:food_edamam/screens/food/widgets/foods_item.dart';
 import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/app_lotties.dart';
@@ -27,16 +28,32 @@ class FoodPage extends StatelessWidget {
                   ? Column(
                       children: [
                         Expanded(
-                          child: ListView(
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            children: List.generate(
-                              state.foodRecipeModel.hits!.length,
-                              (index) => FoodsItem(
-                                hint: state.foodRecipeModel.hits![index],
-                              ),
-                            ),
-                          ),
+                          child: state.foodRecipeModel.hits!.isEmpty
+                              ? Center(
+                                  child: Lottie.asset(
+                                    AppLotties.noData,
+                                  ),
+                                )
+                              : ListView(
+                                  physics: const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  children: List.generate(
+                                    state.foodRecipeModel.hits!.length,
+                                    (index) => FoodsItem(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          RouteName.foodDetail,
+                                          arguments: {
+                                            'foodInfo': state
+                                                .foodRecipeModel.hits![index]
+                                          },
+                                        );
+                                      },
+                                      hint: state.foodRecipeModel.hits![index],
+                                    ),
+                                  ),
+                                ),
                         ),
                       ],
                     )

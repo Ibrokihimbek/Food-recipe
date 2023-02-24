@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:food_edamam/service/api_service/api_client.dart';
-import 'package:food_edamam/data/models/food_resipe/food_recipe_model.dart';
+import 'package:food_edamam/data/models/food_resipe/food_recipe.dart';
 import 'package:food_edamam/data/models/my_respon/response_model.dart';
 
 class ApiService extends ApiClient {
