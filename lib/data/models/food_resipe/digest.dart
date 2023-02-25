@@ -1,4 +1,6 @@
-class Sub {
+import 'package:food_edamam/data/models/food_resipe/sub.dart';
+
+class Digest {
   String label;
   String tag;
   String schemaOrgTag;
@@ -6,8 +8,9 @@ class Sub {
   bool hasRDI;
   num daily;
   String unit;
+  List<Sub> sub;
 
-  Sub({
+  Digest({
     required this.label,
     required this.tag,
     required this.schemaOrgTag,
@@ -15,10 +18,11 @@ class Sub {
     required this.hasRDI,
     required this.daily,
     required this.unit,
+    required this.sub,
   });
 
-  factory Sub.fromJson(Map<String, dynamic> json) {
-    return Sub(
+  factory Digest.fromJson(Map<String, dynamic> json) {
+    return Digest(
       label: json['label'] as String? ?? '',
       tag: json['tag'] as String? ?? '',
       schemaOrgTag: json['schemaOrgTag'] as String? ?? '',
@@ -26,6 +30,7 @@ class Sub {
       hasRDI: json['hasRDI'] as bool? ?? false,
       daily: json['daily'] as num? ?? 0,
       unit: json['unit'] as String? ?? '',
+      sub: (json['sub'] as List?)?.map((e) => Sub.fromJson(e)).toList() ?? [],
     );
   }
 }

@@ -1,93 +1,92 @@
-import 'package:food_edamam/data/models/food_resipe/gigest.dart';
+import 'package:food_edamam/data/models/food_resipe/digest.dart';
 import 'package:food_edamam/data/models/food_resipe/images.dart';
 import 'package:food_edamam/data/models/food_resipe/ingridient.dart';
 import 'package:food_edamam/data/models/food_resipe/total_dailiy.dart';
 import 'package:food_edamam/data/models/food_resipe/total_nutrients.dart';
 
 class Recipe {
-  String? uri;
-  String? label;
-  String? image;
-  Images? images;
-  String? source;
-  String? url;
-  String? shareAs;
-  num? yield;
-  List<String>? dietLabels;
-  List<String>? healthLabels;
-  List<String>? cautions;
-  List<String>? ingredientLines;
-  List<Ingredients>? ingredients;
-  double? calories;
-  double? totalWeight;
-  num? totalTime;
-  List<String>? cuisineType;
-  List<String>? mealType;
-  List<String>? dishType;
-  TotalNutrients? totalNutrients;
-  TotalDaily? totalDaily;
-  List<Digest>? digest;
+  String uri;
+  String label;
+  String image;
+  Images images;
+  String source;
+  String url;
+  String shareAs;
+  num yieldRecipe;
+  List<dynamic> dietLabels;
+  List<dynamic> healthLabels;
+  List<dynamic> cautions;
+  List<dynamic> ingredientLines;
+  List<Ingredients> ingredients;
+  num calories;
+  num totalWeight;
+  num totalTime;
+  List<dynamic> cuisineType;
+  List<dynamic> mealType;
+  List<dynamic> dishType;
+  TotalNutrients totalNutrients;
+  TotalDaily totalDaily;
+  List<Digest> digest;
 
-  Recipe(
-      {this.uri,
-      this.label,
-      this.image,
-      this.images,
-      this.source,
-      this.url,
-      this.shareAs,
-      this.yield,
-      this.dietLabels,
-      this.healthLabels,
-      this.cautions,
-      this.ingredientLines,
-      this.ingredients,
-      this.calories,
-      this.totalWeight,
-      this.totalTime,
-      this.cuisineType,
-      this.mealType,
-      this.dishType,
-      this.totalNutrients,
-      this.totalDaily,
-      this.digest});
+  Recipe({
+    required this.uri,
+    required this.label,
+    required this.image,
+    required this.images,
+    required this.source,
+    required this.url,
+    required this.shareAs,
+    required this.yieldRecipe,
+    required this.dietLabels,
+    required this.healthLabels,
+    required this.cautions,
+    required this.ingredientLines,
+    required this.ingredients,
+    required this.calories,
+    required this.totalWeight,
+    required this.totalTime,
+    required this.cuisineType,
+    required this.mealType,
+    required this.dishType,
+    required this.totalNutrients,
+    required this.totalDaily,
+    required this.digest,
+  });
 
-  Recipe.fromJson(Map<String, dynamic> json) {
-    uri = json['uri'];
-    label = json['label'];
-    image = json['image'];
-    images = json['images'] != null ? Images.fromJson(json['images']) : null;
-    source = json['source'];
-    url = json['url'];
-    shareAs = json['shareAs'];
-    yield = json['yield'];
-    dietLabels = json['dietLabels'].cast<String>();
-    healthLabels = json['healthLabels'].cast<String>();
-    cautions = json['cautions'].cast<String>();
-    ingredientLines = json['ingredientLines'].cast<String>();
-    if (json['ingredients'] != null) {
-      ingredients = <Ingredients>[];
-      json['ingredients'].forEach((v) {
-        ingredients!.add(Ingredients.fromJson(v));
-      });
-    }
-    calories = json['calories'];
-    totalWeight = json['totalWeight'];
-    totalTime = json['totalTime'];
-    cuisineType = json['cuisineType'].cast<String>();
-    mealType = json['mealType'].cast<String>();
-    dishType = json['dishType'].cast<String>();
-    totalNutrients = json['totalNutrients'] != null
-        ? TotalNutrients.fromJson(json['totalNutrients'])
-        : null;
-    totalDaily = json['totalDaily'] != null
-        ? TotalDaily.fromJson(json['totalDaily'])
-        : null;
-    if (json['digest'] != null) {
-      digest = <Digest>[];
-      json['digest'].forEach((v) {
-        digest!.add(Digest.fromJson(v));
-      });
-    }
+  factory Recipe.fromJson(Map<String, dynamic> json) {
+    return Recipe(
+      uri: json['uri'] as String? ?? '',
+      label: json['label'] as String? ?? '',
+      image: json['image'] as String? ??
+          'https://media.istockphoto.com/id/1192970073/vector/tried-and-tested-recipe-approved-label-design-with-text-for-test-kitchen-or-blog-recipes.jpg?s=170667a&w=0&k=20&c=yA7r6LUagUguYUph-981Cv7PAkFw6moFWV-uvqmkSr4=',
+      images: Images.fromJson(json['images'] as Map<String, dynamic>? ?? {}),
+      source: json['source'] as String? ?? '',
+      url: json['url'] as String? ?? '',
+      shareAs: json['shareAs'] as String? ?? '',
+      yieldRecipe: json['yieldRecipe'] as num? ?? 0,
+      dietLabels: json['dietLabels'] as List<dynamic>? ?? [],
+      healthLabels: json['healthLabels'] as List<dynamic>? ?? [],
+      cautions: json['cautions'] as List<dynamic>? ?? [],
+      ingredientLines: json['ingredientLines'] as List<dynamic>? ?? [],
+      ingredients: (json['ingredients'] as List?)
+              ?.map((e) => Ingredients.fromJson(e))
+              .toList() ??
+          [],
+      calories: json['calories'] as num? ?? 0,
+      totalWeight: json['totalWeight'] as num? ?? 0,
+      totalTime: json['totalTime'] as num? ?? 0,
+      cuisineType: json['cuisineType'] as List<dynamic>? ?? [],
+      mealType: json['mealType'] as List<dynamic>? ?? [],
+      dishType: json['dishType'] as List<dynamic>? ?? [],
+      totalNutrients: TotalNutrients.fromJson(
+        json['totalNutrients'] as Map<String, dynamic>? ?? {},
+      ),
+      totalDaily: TotalDaily.fromJson(
+        json['totalDaily'] as Map<String, dynamic>? ?? {},
+      ),
+      digest:
+          (json['digest'] as List?)?.map((e) => Digest.fromJson(e)).toList() ??
+              [],
+    );
   }
 }

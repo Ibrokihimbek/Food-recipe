@@ -28,7 +28,7 @@ class FoodPage extends StatelessWidget {
                   ? Column(
                       children: [
                         Expanded(
-                          child: state.foodRecipeModel.hits!.isEmpty
+                          child: state.foodRecipeModel.hits.isEmpty
                               ? Center(
                                   child: Lottie.asset(
                                     AppLotties.noData,
@@ -38,7 +38,7 @@ class FoodPage extends StatelessWidget {
                                   physics: const BouncingScrollPhysics(),
                                   shrinkWrap: true,
                                   children: List.generate(
-                                    state.foodRecipeModel.hits!.length,
+                                    state.foodRecipeModel.hits.length,
                                     (index) => FoodsItem(
                                       onTap: () {
                                         Navigator.pushNamed(
@@ -46,11 +46,11 @@ class FoodPage extends StatelessWidget {
                                           RouteName.foodDetail,
                                           arguments: {
                                             'foodInfo': state
-                                                .foodRecipeModel.hits![index]
+                                                .foodRecipeModel.hits[index]
                                           },
                                         );
                                       },
-                                      hint: state.foodRecipeModel.hits![index],
+                                      hint: state.foodRecipeModel.hits[index],
                                     ),
                                   ),
                                 ),

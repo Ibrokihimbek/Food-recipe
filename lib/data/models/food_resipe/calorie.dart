@@ -1,13 +1,19 @@
 class ENERCKCAL {
-  String? label;
-  double? quantity;
-  String? unit;
+  String label;
+  num quantity;
+  String unit;
 
-  ENERCKCAL({this.label, this.quantity, this.unit});
+  ENERCKCAL({
+    required this.label,
+    required this.quantity,
+    required this.unit,
+  });
 
-  ENERCKCAL.fromJson(Map<String, dynamic> json) {
-    label = json['label'];
-    quantity = json['quantity'];
-    unit = json['unit'];
+  factory ENERCKCAL.fromJson(Map<String, dynamic> json) {
+    return ENERCKCAL(
+      label : json['label'] as String? ?? '',
+      quantity : json['quantity'] as num? ?? 0,
+      unit : json['unit'] as String? ?? '',
+    );
   }
 }

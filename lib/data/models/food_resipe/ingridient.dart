@@ -1,31 +1,34 @@
 class Ingredients {
-  String? text;
-  double? quantity;
-  String? measure;
-  String? food;
-  double? weight;
-  String? foodCategory;
-  String? foodId;
-  String? image;
+  num quantity;
+  num weight;
+  String text;
+  String measure;
+  String food;
+  String foodCategory;
+  String foodId;
+  String image;
 
-  Ingredients(
-      {this.text,
-      this.quantity,
-      this.measure,
-      this.food,
-      this.weight,
-      this.foodCategory,
-      this.foodId,
-      this.image});
+  Ingredients({
+    required this.text,
+    required this.quantity,
+    required this.measure,
+    required this.food,
+    required this.weight,
+    required this.foodCategory,
+    required this.foodId,
+    required this.image,
+  });
 
-  Ingredients.fromJson(Map<String, dynamic> json) {
-    text = json['text'];
-    quantity = json['quantity'];
-    measure = json['measure'];
-    food = json['food'];
-    weight = json['weight'];
-    foodCategory = json['foodCategory'];
-    foodId = json['foodId'];
-    image = json['image'];
+  factory Ingredients.fromJson(Map<String, dynamic> json) {
+    return Ingredients(
+      quantity: json['quantity'] as num? ?? 0,
+      weight: json['weight'] as num? ?? 0,
+      text: json['text'] as String? ?? '',
+      measure: json['measure'] as String? ?? '',
+      food: json['food'] as String? ?? '',
+      foodCategory: json['foodCategory'] as String? ?? '',
+      foodId: json['foodId'] as String? ?? '',
+      image: json['image'] as String? ?? 'https://media.istockphoto.com/id/1192970073/vector/tried-and-tested-recipe-approved-label-design-with-text-for-test-kitchen-or-blog-recipes.jpg?s=170667a&w=0&k=20&c=yA7r6LUagUguYUph-981Cv7PAkFw6moFWV-uvqmkSr4=',
+    );
   }
 }

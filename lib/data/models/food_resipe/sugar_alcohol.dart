@@ -1,13 +1,19 @@
 class SugarAlcohol {
-  String? label;
-  num? quantity;
-  String? unit;
+  String label;
+  num quantity;
+  String unit;
 
-  SugarAlcohol({this.label, this.quantity, this.unit});
+  SugarAlcohol({
+    required this.label,
+    required this.quantity,
+    required this.unit,
+  });
 
-  SugarAlcohol.fromJson(Map<String, dynamic> json) {
-    label = json['label'];
-    quantity = json['quantity'];
-    unit = json['unit'];
+  factory SugarAlcohol.fromJson(Map<String, dynamic> json) {
+    return SugarAlcohol(
+      label: json['label'] as String? ?? '',
+      quantity: json['quantity'] as num? ?? 0,
+      unit: json['unit'] as String? ?? '',
+    );
   }
 }

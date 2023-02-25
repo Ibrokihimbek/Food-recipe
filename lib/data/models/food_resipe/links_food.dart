@@ -1,11 +1,15 @@
 import 'package:food_edamam/data/models/food_resipe/next.dart';
 
 class LinksFood {
-  Next? self;
+  Next self;
 
-  LinksFood({this.self});
+  LinksFood({required this.self});
 
-  LinksFood.fromJson(Map<String, dynamic> json) {
-    self = json['self'] != null ? Next.fromJson(json['self']) : null;
+  factory LinksFood.fromJson(Map<String, dynamic> json) {
+    return LinksFood(
+      self: Next.fromJson(
+        json['self'] as Map<String, dynamic>? ?? {},
+      ),
+    );
   }
 }

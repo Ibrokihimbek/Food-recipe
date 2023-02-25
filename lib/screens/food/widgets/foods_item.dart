@@ -7,13 +7,14 @@ import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/font_style.dart';
 
 class FoodsItem extends StatelessWidget {
+  
   final VoidCallback onTap;
   final Hits hint;
   const FoodsItem({super.key, required this.hint, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 2.0;
+    // timeDilation = 2.0;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -49,7 +50,7 @@ class FoodsItem extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16.r),
                         child: PhotoHero(
-                          photo: hint.recipe!.image!,
+                          photo: hint.recipe.image,
                         ),
                       ),
                     ),
@@ -57,26 +58,42 @@ class FoodsItem extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        hint.recipe!.source!,
-                        style: fontRobotoW600(appcolor: AppColors.black)
-                            .copyWith(fontSize: 16.sp),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: hint.recipe.source.substring(
+                                  0,
+                                  hint.recipe.source.length > 26
+                                      ? 25
+                                      : hint.recipe.source.length),
+                              style: fontRobotoW600(appcolor: AppColors.black)
+                                  .copyWith(fontSize: 16.sp),
+                            ),
+                            TextSpan(
+                              text: hint.recipe.source.length > 26
+                                  ? "... more"
+                                  : "",
+                              style: const TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
                       ),
                       SizedBox(height: 4.h),
                       RichText(
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text: hint.recipe!.label!.substring(
+                              text: hint.recipe.label.substring(
                                   0,
-                                  hint.recipe!.label!.length > 25
+                                  hint.recipe.label.length > 25
                                       ? 16
-                                      : hint.recipe!.label!.length),
+                                      : hint.recipe.label.length),
                               style: fontRobotoW600(appcolor: AppColors.black)
                                   .copyWith(fontSize: 16.sp),
                             ),
                             TextSpan(
-                              text: hint.recipe!.label!.length > 25
+                              text: hint.recipe.label.length > 25
                                   ? "... more"
                                   : "",
                               style: const TextStyle(color: Colors.grey),
@@ -86,7 +103,7 @@ class FoodsItem extends StatelessWidget {
                       ),
                       SizedBox(height: 8.h),
                       Text(
-                        'Kal: ${hint.recipe!.calories!.toInt()}',
+                        'Kal: ${hint.recipe.calories.toInt()}',
                         style: fontRobotoW400(
                           appcolor: AppColors.C_97A2B0,
                         ).copyWith(fontSize: 14.sp),

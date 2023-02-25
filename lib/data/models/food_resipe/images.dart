@@ -1,20 +1,32 @@
 import 'package:food_edamam/data/models/food_resipe/thumbial.dart';
 
 class Images {
-  THUMBNAIL? tHUMBNAIL;
-  THUMBNAIL? sMALL;
-  THUMBNAIL? rEGULAR;
-  THUMBNAIL? lARGE;
+  THUMBNAIL tHUMBNAIL;
+  THUMBNAIL sMALL;
+  THUMBNAIL rEGULAR;
+  THUMBNAIL lARGE;
 
-  Images({this.tHUMBNAIL, this.sMALL, this.rEGULAR, this.lARGE});
+  Images({
+    required this.tHUMBNAIL,
+    required this.sMALL,
+    required this.rEGULAR,
+    required this.lARGE,
+  });
 
-  Images.fromJson(Map<String, dynamic> json) {
-    tHUMBNAIL = json['THUMBNAIL'] != null
-        ? THUMBNAIL.fromJson(json['THUMBNAIL'])
-        : null;
-    sMALL = json['SMALL'] != null ? THUMBNAIL.fromJson(json['SMALL']) : null;
-    rEGULAR =
-        json['REGULAR'] != null ? THUMBNAIL.fromJson(json['REGULAR']) : null;
-    lARGE = json['LARGE'] != null ? THUMBNAIL.fromJson(json['LARGE']) : null;
+  factory Images.fromJson(Map<String, dynamic> json) {
+    return Images(
+      tHUMBNAIL: THUMBNAIL.fromJson(
+        json['THUMBNAIL'] as Map<String, dynamic>? ?? {},
+      ),
+      sMALL: THUMBNAIL.fromJson(
+        json['SMALL'] as Map<String, dynamic>? ?? {},
+      ),
+      rEGULAR: THUMBNAIL.fromJson(
+        json['REGULAR'] as Map<String, dynamic>? ?? {},
+      ),
+      lARGE: THUMBNAIL.fromJson(
+        json['LARGE'] as Map<String, dynamic>? ?? {},
+      ),
+    );
   }
 }
