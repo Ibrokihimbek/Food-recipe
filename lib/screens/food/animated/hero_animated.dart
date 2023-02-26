@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_edamam/utils/app_images.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PhotoHero extends StatelessWidget {
@@ -31,7 +32,7 @@ class PhotoHero extends StatelessWidget {
               ),
             );
           },
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) => Image.asset(AppImages.recipe),
         ),
       ),
     );

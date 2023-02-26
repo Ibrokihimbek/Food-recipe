@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:food_edamam/service/api_service/api_service.dart';
 import 'package:food_edamam/data/models/my_respon/response_model.dart';
 
@@ -33,4 +32,7 @@ class GetFoodRepo {
         time: time,
         excluded: excluded,
       );
+
+  Future<MyResponse> getFoodsNextPage({required String nextPageUrl}) =>
+      _apiService.getFoodsFromUrl(nextPageUrl: nextPageUrl);
 }

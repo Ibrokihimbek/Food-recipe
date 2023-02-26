@@ -25,6 +25,8 @@ dependencies:
   flutter_svg: ^2.0.2
   cached_network_image: ^3.2.3
   shimmer: ^2.0.0
+  keyboard_dismisser: ^3.0.0
+  shared_preferences: ^2.0.18
 
 dev_dependencies:
   flutter_test:

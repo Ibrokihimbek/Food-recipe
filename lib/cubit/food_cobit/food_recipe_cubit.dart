@@ -66,6 +66,27 @@ class FoodRecipeCubit extends Cubit<FoodRecipeState> {
       );
     }
   }
+
+  fetchFoodsByNextPage({required String nextPageUrl}) async {
+    emit(state.copyWith(foodsCubitStatus: FoodCubitStatus.LOADING));
+    MyResponse myResponse =
+        await foodRepo.getFoodsNextPage(nextPageUrl: nextPageUrl);
+
+    if (myResponse.error.isEmpty) {
+      emit(
+        state.copyWith(
+          foodRecipeModel: myResponse.data,
+          foodsCubitStatus: FoodCubitStatus.SUCCESS,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+            errorText: myResponse.error,
+            foodsCubitStatus: FoodCubitStatus.ERROR),
+      );
+    }
+  }
 }
 
 enum FoodCubitStatus { ERROR, SUCCESS, LOADING, PURE }

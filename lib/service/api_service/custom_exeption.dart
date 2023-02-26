@@ -4,7 +4,7 @@ class BadRequestException extends DioError {
   BadRequestException(RequestOptions r) : super(requestOptions: r);
   @override
   String toString() {
-    return 'So‘rov noto‘g‘ri';
+    return 'Invalid request';
   }
 }
 
@@ -13,7 +13,7 @@ class InternalServerErrorException extends DioError {
 
   @override
   String toString() {
-    return "Noma'lum xatolik yuz berdi, keyinroq qayta urinib ko'ring.";
+    return 'Unknown error occurred, please try again later.';
   }
 }
 
@@ -22,7 +22,7 @@ class ConflictException extends DioError {
 
   @override
   String toString() {
-    return "Mojaro yuz berdi";
+    return 'Conflict occurred';
   }
 }
 
@@ -31,7 +31,7 @@ class UnauthorizedException extends DioError {
 
   @override
   String toString() {
-    return "Ruxsat yo'q";
+    return 'Access denied';
   }
 }
 
@@ -40,7 +40,7 @@ class NotFoundException extends DioError {
 
   @override
   String toString() {
-    return "Soʻralgan maʼlumotni topib boʻlmadi";
+    return 'The requested information could not be found';
   }
 }
 
@@ -49,7 +49,7 @@ class NoInternetConnectionException extends DioError {
 
   @override
   String toString() {
-    return "Internet aloqasi aniqlanmadi, qayta urinib ko‘ring.";
+    return 'No internet connection detected, please try again.';
   }
 }
 
@@ -57,17 +57,17 @@ class DeadlineExceededException extends DioError {
   DeadlineExceededException(RequestOptions r) : super(requestOptions: r);
   @override
   String toString() {
-    return "Ulanish vaqti tugadi, qayta urinib ko‘ring.";
+    return 'The connection has timed out, please try again.';
   }
 }
 
 class ReceiveTimeOutException extends DioError {
   ReceiveTimeOutException(RequestOptions r) : super(requestOptions: r);
 
-  String myError = "Ma'lumot chaqirish vaqti tugadi";
+  String myError = "ReceiveTimeOutException";
 
   @override
   String toString() {
-    return "Ma'lumot chaqirish vaqti tugadi, qayta urinib ko'ring.";
+    return 'The ReceiveTimeOutException, please try again.';
   }
 }

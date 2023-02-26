@@ -24,9 +24,6 @@ class TextfieldWidget extends StatelessWidget {
         keyboardType: TextInputType.number,
         controller: textController,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: ((value) => value != null && value.length < 2
-            ? "Please enter at least 3 characters!"
-            : null),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(left: 12),
           hintText: word,
@@ -94,9 +91,6 @@ class TextfieldWidgetByCalories extends StatelessWidget {
         keyboardType: TextInputType.number,
         controller: textController,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: ((value) => value != null && value.length < 6
-            ? "Please enter at least 6 characters!"
-            : null),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(left: 12),
           hintText: word,
@@ -157,9 +151,6 @@ class TextfieldWidgetByTime extends StatelessWidget {
         keyboardType: TextInputType.number,
         controller: textController,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: ((value) => value != null && value.length < 2
-            ? "Please enter at least 2 characters!"
-            : null),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(left: 12),
           hintText: word,
@@ -205,6 +196,7 @@ class TextfieldWidgetByTime extends StatelessWidget {
     );
   }
 }
+
 class TextfieldWidgetByExcluded extends StatelessWidget {
   final TextEditingController textController;
   final String word;
@@ -219,9 +211,6 @@ class TextfieldWidgetByExcluded extends StatelessWidget {
         keyboardType: TextInputType.text,
         controller: textController,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: ((value) => value != null && value.length < 6
-            ? "Please enter at least 6 characters!"
-            : null),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(left: 12),
           hintText: word,

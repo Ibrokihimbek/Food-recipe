@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_edamam/data/models/food_resipe/hits.dart';
 import 'package:food_edamam/screens/food/animated/hero_animated.dart';
@@ -14,7 +13,6 @@ class FoodsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // timeDilation = 2.0;
 
     return Padding(
       padding: const EdgeInsets.symmetric(

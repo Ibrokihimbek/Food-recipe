@@ -9,54 +9,152 @@ import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/app_lotties.dart';
 import 'package:food_edamam/utils/font_style.dart';
 import 'package:food_edamam/widgets/custom_appbar.dart';
+import 'package:food_edamam/widgets/custom_button.dart';
 import 'package:lottie/lottie.dart';
 
+List<String> urlNextPage = [];
+
 class FoodPage extends StatelessWidget {
-  const FoodPage({super.key});
+  final String query;
+  final String diet;
+  final String health;
+  final String mealType;
+  final String dishType;
+  final String cuisineType;
+  final String ingredient;
+  final String calories;
+  final String time;
+  final String excluded;
+  const FoodPage({
+    super.key,
+    required this.query,
+    required this.diet,
+    required this.health,
+    required this.mealType,
+    required this.dishType,
+    required this.cuisineType,
+    required this.ingredient,
+    required this.calories,
+    required this.time,
+    required this.excluded,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FoodRecipeCubit, FoodRecipeState>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: AppColors.white,
           appBar: const CustomAppBar(title: 'Foods'),
           body: state.foodsCubitStatus == FoodCubitStatus.LOADING
               ? Center(
                   child: Lottie.asset(AppLotties.waiting, width: 130.w),
                 )
               : state.foodsCubitStatus == FoodCubitStatus.SUCCESS
-                  ? Column(
-                      children: [
-                        Expanded(
-                          child: state.foodRecipeModel.hits.isEmpty
-                              ? Center(
-                                  child: Lottie.asset(
-                                    AppLotties.noData,
-                                  ),
-                                )
-                              : ListView(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  children: List.generate(
-                                    state.foodRecipeModel.hits.length,
-                                    (index) => FoodsItem(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          RouteName.foodDetail,
-                                          arguments: {
-                                            'foodInfo': state
-                                                .foodRecipeModel.hits[index]
-                                          },
-                                        );
-                                      },
-                                      hint: state.foodRecipeModel.hits[index],
+                  ? state.foodRecipeModel.hits.isEmpty
+                      ? Center(
+                          child: Lottie.asset(
+                            AppLotties.noData,
+                          ),
+                        )
+                      : Column(
+                          children: [
+                            Expanded(
+                              child: ListView(
+                                physics: const BouncingScrollPhysics(),
+                                children: List.generate(
+                                    state.foodRecipeModel.hits.length, (index) {
+                                  return FoodsItem(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        RouteName.foodDetail,
+                                        arguments: {
+                                          'foodInfo':
+                                              state.foodRecipeModel.hits[index]
+                                        },
+                                      );
+                                    },
+                                    hint: state.foodRecipeModel.hits[index],
+                                  );
+                                }),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 18,
+                                vertical: 8,
+                              ),
+                              child: Row(
+                                children: [
+                                  Visibility(
+                                    visible: state.foodRecipeModel.from == 1
+                                        ? false
+                                        : true,
+                                    child: Expanded(
+                                      child: CustomButton(
+                                        width: double.infinity,
+                                        onTap: () {
+                                          context
+                                              .read<FoodRecipeCubit>()
+                                              .fetchFoodsByNextPage(
+                                                nextPageUrl: urlNextPage
+                                                            .length !=
+                                                        1
+                                                    ? urlNextPage.elementAt(
+                                                        urlNextPage.length - 2,
+                                                      )
+                                                    : context
+                                                        .read<FoodRecipeCubit>()
+                                                        .fetchFoods(
+                                                          q: query,
+                                                          ingr: ingredient,
+                                                          diet: diet,
+                                                          health: health,
+                                                          cuisineType:
+                                                              cuisineType,
+                                                          mealType: mealType,
+                                                          dishType: dishType,
+                                                          calories: calories,
+                                                          time: time,
+                                                          excluded: excluded,
+                                                        ),
+                                              );
+                                          urlNextPage.removeLast();
+                                        },
+                                        buttonName: 'Back',
+                                      ),
                                     ),
                                   ),
-                                ),
-                        ),
-                      ],
-                    )
+                                  Visibility(
+                                    visible: state.foodRecipeModel.from == 1
+                                        ? false
+                                        : true,
+                                    child: SizedBox(width: 12.w),
+                                  ),
+                                  Expanded(
+                                    child: CustomButton(
+                                        width: double.infinity,
+                                        onTap: () {
+                                          urlNextPage.add(state.foodRecipeModel
+                                              .lLinks.next.href);
+
+                                          context
+                                              .read<FoodRecipeCubit>()
+                                              .fetchFoodsByNextPage(
+                                                  nextPageUrl: state
+                                                      .foodRecipeModel
+                                                      .lLinks
+                                                      .next
+                                                      .href);
+                                        },
+                                        buttonName: 'Next'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
                   : state.foodsCubitStatus == FoodCubitStatus.ERROR
                       ? Center(
                           child: Text(

@@ -3,6 +3,7 @@ class AppImages {
 
   static const imageLogo = 'assets/images/logo.png';
   static const imageBackgroundPatern = 'assets/images/background_patern.png';
+  static const recipe = 'assets/images/recipe.png';
 
   /// SVG
 

@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_edamam/data/models/food_digest/food_digest.dart';
-import 'package:food_edamam/data/models/food_resipe/digest.dart';
 import 'package:food_edamam/data/models/food_resipe/hits.dart';
 import 'package:food_edamam/screens/food/animated/hero_animated.dart';
 import 'package:food_edamam/utils/app_colors.dart';
