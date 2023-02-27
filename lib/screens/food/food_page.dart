@@ -5,6 +5,7 @@ import 'package:food_edamam/cubit/food_cobit/food_recipe_cubit.dart';
 import 'package:food_edamam/cubit/food_cobit/food_recipe_state.dart';
 import 'package:food_edamam/screens/app_router.dart';
 import 'package:food_edamam/screens/food/widgets/foods_item.dart';
+import 'package:food_edamam/screens/food/widgets/shimmer_widget.dart';
 import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/app_lotties.dart';
 import 'package:food_edamam/utils/font_style.dart';
@@ -47,9 +48,7 @@ class FoodPage extends StatelessWidget {
           backgroundColor: AppColors.white,
           appBar: const CustomAppBar(title: 'Foods'),
           body: state.foodsCubitStatus == FoodCubitStatus.LOADING
-              ? Center(
-                  child: Lottie.asset(AppLotties.waiting, width: 130.w),
-                )
+              ? const Center(child: ShimmerVidget())
               : state.foodsCubitStatus == FoodCubitStatus.SUCCESS
                   ? state.foodRecipeModel.hits.isEmpty
                       ? Center(
@@ -60,24 +59,30 @@ class FoodPage extends StatelessWidget {
                       : Column(
                           children: [
                             Expanded(
-                              child: ListView(
-                                physics: const BouncingScrollPhysics(),
-                                children: List.generate(
-                                    state.foodRecipeModel.hits.length, (index) {
-                                  return FoodsItem(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        RouteName.foodDetail,
-                                        arguments: {
-                                          'foodInfo':
-                                              state.foodRecipeModel.hits[index]
-                                        },
-                                      );
-                                    },
-                                    hint: state.foodRecipeModel.hits[index],
-                                  );
-                                }),
+                              child: RawScrollbar(
+                                thumbColor: AppColors.C_70B9BE,
+                                radius: Radius.circular(16.r),
+                                thickness: 7,
+                                child: ListView(
+                                  physics: const BouncingScrollPhysics(),
+                                  children: List.generate(
+                                      state.foodRecipeModel.hits.length,
+                                      (index) {
+                                    return FoodsItem(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          RouteName.foodDetail,
+                                          arguments: {
+                                            'foodInfo': state
+                                                .foodRecipeModel.hits[index]
+                                          },
+                                        );
+                                      },
+                                      hint: state.foodRecipeModel.hits[index],
+                                    );
+                                  }),
+                                ),
                               ),
                             ),
                             Padding(

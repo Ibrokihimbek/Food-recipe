@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_edamam/cubit/food_cobit/food_recipe_cubit.dart';
 import 'package:food_edamam/data/repository/get_food_repo.dart';
+import 'package:food_edamam/data/repository/shared_repo/shared_repository.dart';
 import 'package:food_edamam/screens/app_router.dart';
 import 'package:food_edamam/service/api_service/api_service.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  StorageRepository.getInstance();
   runApp(
     MultiRepositoryProvider(
       providers: [

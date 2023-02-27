@@ -4,6 +4,10 @@ class AppImages {
   static const imageLogo = 'assets/images/logo.png';
   static const imageBackgroundPatern = 'assets/images/background_patern.png';
   static const recipe = 'assets/images/recipe.png';
+  static const onBoardingBg = 'assets/images/on_boarding_bg.jpg';
+  static const onBoardingFirst = 'assets/images/on_boarding_first.png';
+  static const onBoardingSecond = 'assets/images/on_boarding_second.png';
+  static const onBoardingThird = 'assets/images/on_boarding_third.png';
 
   /// SVG
 
