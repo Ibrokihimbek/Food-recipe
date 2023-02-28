@@ -27,6 +27,7 @@ dependencies:
   shimmer: ^2.0.0
   keyboard_dismisser: ^3.0.0
   shared_preferences: ^2.0.18
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

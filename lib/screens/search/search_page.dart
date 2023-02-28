@@ -47,7 +47,10 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return KeyboardDismisser(
       child: Scaffold(
-        appBar: const CustomAppBar(title: 'Filter'),
+        appBar: CustomAppBar(
+          title: 'Filter',
+          onTap: () {},
+        ),
         body: Form(
           key: formKey,
           child: RawScrollbar(

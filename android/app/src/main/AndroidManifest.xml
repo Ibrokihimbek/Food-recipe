@@ -2,7 +2,7 @@
     package="com.davronbekov.food_edamam">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="food_edamam"
+        android:label="Recipely"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

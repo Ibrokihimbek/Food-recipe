@@ -6,14 +6,12 @@ import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/font_style.dart';
 
 class FoodsItem extends StatelessWidget {
-  
   final VoidCallback onTap;
   final Hits hint;
   const FoodsItem({super.key, required this.hint, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 18,
@@ -63,7 +61,7 @@ class FoodsItem extends StatelessWidget {
                               text: hint.recipe.source.substring(
                                   0,
                                   hint.recipe.source.length > 26
-                                      ? 25
+                                      ? 20
                                       : hint.recipe.source.length),
                               style: fontRobotoW600(appcolor: AppColors.black)
                                   .copyWith(fontSize: 16.sp),

@@ -5,17 +5,30 @@ import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/font_style.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSize {
-  const CustomAppBar({
-    super.key,
-    required this.title,
-  });
+  const CustomAppBar(
+      {super.key,
+      required this.title,
+      required this.onTap,
+      this.isIcon = false});
 
   final String title;
+  final VoidCallback onTap;
+  final bool isIcon;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      iconTheme: const IconThemeData(
+        color: AppColors.black,
+      ),
+      leading: GestureDetector(
+        onTap: onTap,
+        child: Icon(
+          Icons.menu,
+          color: !isIcon ? Colors.transparent : AppColors.black,
+        ),
+      ),
+      backgroundColor: isIcon ? AppColors.white : Colors.transparent,
       elevation: 0,
       centerTitle: true,
       title: Text(

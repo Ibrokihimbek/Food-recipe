@@ -4,9 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_edamam/cubit/food_cobit/food_recipe_cubit.dart';
 import 'package:food_edamam/cubit/food_cobit/food_recipe_state.dart';
 import 'package:food_edamam/screens/app_router.dart';
+import 'package:food_edamam/screens/food/widgets/deawer_banner.dart';
+import 'package:food_edamam/screens/food/widgets/drawer_body.dart';
 import 'package:food_edamam/screens/food/widgets/foods_item.dart';
 import 'package:food_edamam/screens/food/widgets/shimmer_widget.dart';
 import 'package:food_edamam/utils/app_colors.dart';
+import 'package:food_edamam/utils/app_images.dart';
 import 'package:food_edamam/utils/app_lotties.dart';
 import 'package:food_edamam/utils/font_style.dart';
 import 'package:food_edamam/widgets/custom_appbar.dart';
@@ -14,6 +17,7 @@ import 'package:food_edamam/widgets/custom_button.dart';
 import 'package:lottie/lottie.dart';
 
 List<String> urlNextPage = [];
+GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class FoodPage extends StatelessWidget {
   final String query;
@@ -45,8 +49,30 @@ class FoodPage extends StatelessWidget {
     return BlocBuilder<FoodRecipeCubit, FoodRecipeState>(
       builder: (context, state) {
         return Scaffold(
+          key: scaffoldKey,
+          drawer: Drawer(
+            child: Column(
+              children: [
+                const DrawerBaner(),
+                DrawerBodyPage(
+                  aboutByApp: () {
+                    Navigator.pushNamed(context, RouteName.aboutApp);
+                  },
+                  aboutDeveloper: () {
+                    Navigator.pushNamed(context, RouteName.aboutdeveloper);
+                  },
+                ),
+              ],
+            ),
+          ),
           backgroundColor: AppColors.white,
-          appBar: const CustomAppBar(title: 'Foods'),
+          appBar: CustomAppBar(
+            title: 'Foods',
+            isIcon: true,
+            onTap: () {
+              scaffoldKey.currentState!.openDrawer();
+            },
+          ),
           body: state.foodsCubitStatus == FoodCubitStatus.LOADING
               ? const Center(child: ShimmerVidget())
               : state.foodsCubitStatus == FoodCubitStatus.SUCCESS
