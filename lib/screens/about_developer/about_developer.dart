@@ -17,6 +17,7 @@ class AboutDeveloper extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
+          
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(12).r,
