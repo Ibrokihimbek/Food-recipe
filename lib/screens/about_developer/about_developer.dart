@@ -78,7 +78,7 @@ class AboutDeveloper extends StatelessWidget {
                     children: [
                       ButtonWidget(
                         onTap: () {
-                          geturl('https://www.instagram.com/ibrokhim_bek_/');
+                          geturl('https://www.instagram.com/davronbekov_dev/');
                         },
                         buttonName: 'Instagram',
                         buttonIcon: AppImages.instagram,
