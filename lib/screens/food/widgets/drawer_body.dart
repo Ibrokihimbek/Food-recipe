@@ -44,7 +44,7 @@ class DrawerBodyPage extends StatelessWidget {
       onTap: onTap,
       tileColor: tileColor,
       leading: Icon(
-        title == 'About the app' ? Icons.info_outline : Icons.person,
+        title == 'About' ? Icons.info_outline : Icons.person,
       ),
       trailing: const Icon(Icons.arrow_forward_ios),
       title: Text(

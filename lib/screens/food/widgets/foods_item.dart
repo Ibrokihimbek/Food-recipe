@@ -4,6 +4,7 @@ import 'package:food_edamam/data/models/food_resipe/hits.dart';
 import 'package:food_edamam/screens/food/animated/hero_animated.dart';
 import 'package:food_edamam/utils/app_colors.dart';
 import 'package:food_edamam/utils/font_style.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class FoodsItem extends StatelessWidget {
   final VoidCallback onTap;
@@ -17,8 +18,7 @@ class FoodsItem extends StatelessWidget {
         horizontal: 18,
         vertical: 8,
       ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(16.r),
+      child: ZoomTapAnimation(
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(

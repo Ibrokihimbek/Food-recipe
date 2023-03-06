@@ -9,17 +9,13 @@ import 'package:food_edamam/screens/food/widgets/drawer_body.dart';
 import 'package:food_edamam/screens/food/widgets/foods_item.dart';
 import 'package:food_edamam/screens/food/widgets/shimmer_widget.dart';
 import 'package:food_edamam/utils/app_colors.dart';
-import 'package:food_edamam/utils/app_images.dart';
 import 'package:food_edamam/utils/app_lotties.dart';
 import 'package:food_edamam/utils/font_style.dart';
 import 'package:food_edamam/widgets/custom_appbar.dart';
 import 'package:food_edamam/widgets/custom_button.dart';
 import 'package:lottie/lottie.dart';
 
-List<String> urlNextPage = [];
-GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
-class FoodPage extends StatelessWidget {
+class FoodPage extends StatefulWidget {
   final String query;
   final String diet;
   final String health;
@@ -43,6 +39,27 @@ class FoodPage extends StatelessWidget {
     required this.time,
     required this.excluded,
   });
+
+  @override
+  State<FoodPage> createState() => _FoodPageState();
+}
+
+class _FoodPageState extends State<FoodPage> {
+  List<String> urlNextPage = [];
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  Future<void> _pullRefresh() async {
+    context.read<FoodRecipeCubit>().fetchFoods(
+        q: widget.query,
+        ingr: widget.ingredient,
+        diet: widget.diet,
+        health: widget.health,
+        cuisineType: widget.cuisineType,
+        mealType: widget.mealType,
+        dishType: widget.dishType,
+        calories: widget.calories,
+        time: widget.time,
+        excluded: widget.excluded);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,130 +90,162 @@ class FoodPage extends StatelessWidget {
               scaffoldKey.currentState!.openDrawer();
             },
           ),
-          body: state.foodsCubitStatus == FoodCubitStatus.LOADING
-              ? const Center(child: ShimmerVidget())
-              : state.foodsCubitStatus == FoodCubitStatus.SUCCESS
-                  ? state.foodRecipeModel.hits.isEmpty
-                      ? Center(
-                          child: Lottie.asset(
-                            AppLotties.noData,
-                          ),
-                        )
-                      : Column(
-                          children: [
-                            Expanded(
-                              child: RawScrollbar(
-                                thumbColor: AppColors.C_70B9BE,
-                                radius: Radius.circular(16.r),
-                                thickness: 7,
-                                child: ListView(
-                                  physics: const BouncingScrollPhysics(),
-                                  children: List.generate(
-                                      state.foodRecipeModel.hits.length,
-                                      (index) {
-                                    return FoodsItem(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          RouteName.foodDetail,
-                                          arguments: {
-                                            'foodInfo': state
-                                                .foodRecipeModel.hits[index]
-                                          },
-                                        );
-                                      },
-                                      hint: state.foodRecipeModel.hits[index],
-                                    );
-                                  }),
+          body: RefreshIndicator(
+            color: AppColors.C_70B9BE,
+            onRefresh: _pullRefresh,
+            child: state.foodsCubitStatus == FoodCubitStatus.LOADING
+                ? const Center(child: ShimmerVidget())
+                : state.foodsCubitStatus == FoodCubitStatus.SUCCESS
+                    ? state.foodRecipeModel.hits.isEmpty
+                        ? Center(
+                            child: Lottie.asset(
+                              AppLotties.noData,
+                            ),
+                          )
+                        : Column(
+                            children: [
+                              Expanded(
+                                child: RawScrollbar(
+                                  thumbColor: AppColors.C_70B9BE,
+                                  radius: Radius.circular(16.r),
+                                  thickness: 7,
+                                  child: ListView(
+                                    physics: const BouncingScrollPhysics(),
+                                    children: List.generate(
+                                        state.foodRecipeModel.hits.length,
+                                        (index) {
+                                      return FoodsItem(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            RouteName.foodDetail,
+                                            arguments: {
+                                              'foodInfo': state
+                                                  .foodRecipeModel.hits[index]
+                                            },
+                                          );
+                                        },
+                                        hint: state.foodRecipeModel.hits[index],
+                                      );
+                                    }),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 18,
-                                vertical: 8,
-                              ),
-                              child: Row(
-                                children: [
-                                  Visibility(
-                                    visible: state.foodRecipeModel.from == 1
-                                        ? false
-                                        : true,
-                                    child: Expanded(
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 8,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Visibility(
+                                      visible: state.foodRecipeModel.from == 1
+                                          ? false
+                                          : true,
+                                      child: Expanded(
+                                        child: CustomButton(
+                                          width: double.infinity,
+                                          onTap: () {
+                                            context
+                                                .read<FoodRecipeCubit>()
+                                                .fetchFoodsByNextPage(
+                                                  nextPageUrl: urlNextPage
+                                                              .length !=
+                                                          1
+                                                      ? urlNextPage.elementAt(
+                                                          urlNextPage.length -
+                                                              2,
+                                                        )
+                                                      : context
+                                                          .read<
+                                                              FoodRecipeCubit>()
+                                                          .fetchFoods(
+                                                            q: widget.query,
+                                                            ingr: widget
+                                                                .ingredient,
+                                                            diet: widget.diet,
+                                                            health:
+                                                                widget.health,
+                                                            cuisineType: widget
+                                                                .cuisineType,
+                                                            mealType:
+                                                                widget.mealType,
+                                                            dishType:
+                                                                widget.dishType,
+                                                            calories:
+                                                                widget.calories,
+                                                            time: widget.time,
+                                                            excluded:
+                                                                widget.excluded,
+                                                          ),
+                                                );
+                                            urlNextPage.removeLast();
+                                          },
+                                          buttonName: 'Back',
+                                        ),
+                                      ),
+                                    ),
+                                    Visibility(
+                                      visible: state.foodRecipeModel.from == 1
+                                          ? false
+                                          : true,
+                                      child: SizedBox(width: 12.w),
+                                    ),
+                                    Expanded(
                                       child: CustomButton(
-                                        width: double.infinity,
-                                        onTap: () {
-                                          context
-                                              .read<FoodRecipeCubit>()
-                                              .fetchFoodsByNextPage(
-                                                nextPageUrl: urlNextPage
-                                                            .length !=
-                                                        1
-                                                    ? urlNextPage.elementAt(
-                                                        urlNextPage.length - 2,
-                                                      )
-                                                    : context
-                                                        .read<FoodRecipeCubit>()
-                                                        .fetchFoods(
-                                                          q: query,
-                                                          ingr: ingredient,
-                                                          diet: diet,
-                                                          health: health,
-                                                          cuisineType:
-                                                              cuisineType,
-                                                          mealType: mealType,
-                                                          dishType: dishType,
-                                                          calories: calories,
-                                                          time: time,
-                                                          excluded: excluded,
-                                                        ),
-                                              );
-                                          urlNextPage.removeLast();
-                                        },
-                                        buttonName: 'Back',
+                                          width: double.infinity,
+                                          onTap: () {
+                                            urlNextPage.add(state
+                                                .foodRecipeModel
+                                                .lLinks
+                                                .next
+                                                .href);
+
+                                            context
+                                                .read<FoodRecipeCubit>()
+                                                .fetchFoodsByNextPage(
+                                                    nextPageUrl: state
+                                                        .foodRecipeModel
+                                                        .lLinks
+                                                        .next
+                                                        .href);
+                                          },
+                                          buttonName: 'Next'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                    : state.foodsCubitStatus == FoodCubitStatus.ERROR
+                        ? RefreshIndicator(
+                            color: AppColors.C_70B9BE,
+                            onRefresh: _pullRefresh,
+                            child: NotificationListener<
+                                OverscrollIndicatorNotification>(
+                              onNotification: (overscroll) {
+                                overscroll.disallowIndicator();
+                                return false;
+                              },
+                              child: SingleChildScrollView(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                child: SizedBox(
+                                  height: 700.h,
+                                  child: Center(
+                                    child: Text(
+                                      state.errorText.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: fontRobotoW400(
+                                        appcolor: AppColors.black,
                                       ),
                                     ),
                                   ),
-                                  Visibility(
-                                    visible: state.foodRecipeModel.from == 1
-                                        ? false
-                                        : true,
-                                    child: SizedBox(width: 12.w),
-                                  ),
-                                  Expanded(
-                                    child: CustomButton(
-                                        width: double.infinity,
-                                        onTap: () {
-                                          urlNextPage.add(state.foodRecipeModel
-                                              .lLinks.next.href);
-
-                                          context
-                                              .read<FoodRecipeCubit>()
-                                              .fetchFoodsByNextPage(
-                                                  nextPageUrl: state
-                                                      .foodRecipeModel
-                                                      .lLinks
-                                                      .next
-                                                      .href);
-                                        },
-                                        buttonName: 'Next'),
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
-                          ],
-                        )
-                  : state.foodsCubitStatus == FoodCubitStatus.ERROR
-                      ? Center(
-                          child: Text(
-                            state.errorText.toString(),
-                            textAlign: TextAlign.center,
-                            style: fontRobotoW400(
-                              appcolor: AppColors.black,
-                            ),
-                          ),
-                        )
-                      : Container(),
+                          )
+                        : Container(),
+          ),
         );
       },
     );

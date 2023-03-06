@@ -51,7 +51,7 @@ class AppRoutes {
       case RouteName.foodDetail:
         final args = settings.arguments as Map<String, dynamic>;
         return PageRouteBuilder(
-          transitionDuration: Duration(milliseconds: 700),
+          transitionDuration: const Duration(milliseconds: 1000),
           pageBuilder: (
             _,
             __,
